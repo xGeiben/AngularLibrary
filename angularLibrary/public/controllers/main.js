@@ -135,6 +135,7 @@ app.controller('mainController', function($scope, $http, $mdDialog, $mdToast) { 
     $scope.assignBook = function() {
       if ($scope.AssignObj.userID == undefined)
         return;
+      $scope.loading = true;
       $http.post('/api/assign', $scope.AssignObj).then(
         function successCallback(response) {
           $scope.assign = false; // Hide the dropdown and the button to assign book to user
@@ -142,13 +143,16 @@ app.controller('mainController', function($scope, $http, $mdDialog, $mdToast) { 
           $scope.book = response.data[0]; // Update the book info
           var foundIndex = $scope.books.findIndex(x => x._id == $scope.book._id); // We find the index of the book that we update in the array of books
           $scope.books[foundIndex] = $scope.book; // And we update it with the new info
+          $scope.loading = false;
         },
         function errorCallback(response) {
+          $scope.loading = false;
           console.log(response);
         }
       )
     };
     $scope.unnasign = function() {
+      $scope.loading = true;
       $scope.AssignObj.userID = $scope.book.currentUser._id;
       $http.post('/api/unassign', $scope.AssignObj).then(
         function successCallback(response) {
@@ -156,21 +160,26 @@ app.controller('mainController', function($scope, $http, $mdDialog, $mdToast) { 
           $scope.book = response.data[0]; // Update the modal book info
           var foundIndex = $scope.books.findIndex(x => x._id == $scope.book._id); // We find the index of the book that we update in the array of books
           $scope.books[foundIndex] = $scope.book; // And we update it with the new info
+          $scope.loading = false;
 
         },
         function errorCallback(response) {
+          $scope.loading = false;
           console.log(response);
         }
       )
     }
     $scope.deleteBook = function() {
+      $scope.loading = true;
       $http.delete('/api/books/' + book._id).then(
         function successCallback(response) {
           console.log("deleted"); // Show message that we successfully deleted the book
           $scope.books = response.data; // The API response contains an array of all the books so we update our array of books with the new data
           $mdDialog.hide(); // Close the modal
+          $scope.loading = false;
         },
         function errorCallback(response) {
+          $scope.loading = false;
           console.log(response);
         }
       )
