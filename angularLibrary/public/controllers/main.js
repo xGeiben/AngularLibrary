@@ -64,7 +64,7 @@ app.controller('mainController', function($scope, $http, $mdDialog, $mdToast) { 
     if ($scope.formData.name == undefined || $scope.formData.author == undefined || $scope.formData.category == undefined || $scope.formData.published == undefined)
       return;
     var foundIndex = $scope.categories.findIndex(x => x.name == $scope.formData.category); // unfortunately  angular js doesnt have support yet for DataList i couldnt find a way to bind the ID with the book form object
-    $scope.formData.category = $scope.books[foundIndex]._id; // So i had to do a little trick before saving or editing to get the ID of the selected category.
+    $scope.formData.category = $scope.categories[foundIndex]._id; // So i had to do a little trick before saving or editing to get the ID of the selected category.
     if ($scope.formData._id == undefined) {
       $http.post('/api/books', $scope.formData).then(
         function successCallback(response) {
