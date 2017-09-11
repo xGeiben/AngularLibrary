@@ -9,4 +9,5 @@ As you can see theres only one project, this is because i included both test (fr
 
 The app is running with a cloud based MongoDB Database i can provide the log in access if requiered.
 
+At the momment Users and Categories can only be added directly to the Data base.
 
