@@ -8,5 +8,5 @@ As i said the functionalities of the app depends on the API so it needed to be o
 As you can see theres only one project, this is because i included both test (front-end and angularJS) in the same page, i think it would be the best for matter of developing and it would be easier for you to review one project instead of two.
 
 The app is running with a cloud based MongoDB Database i can provide the log in access if requiered.
-
+At the momment Users and Categories can only be added directly to the Data base.
 
