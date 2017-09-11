@@ -88,6 +88,7 @@ app.controller('mainController', function($scope, $http, $mdDialog, $mdToast) { 
           $scope.totalItems = $scope.totalPages * 10;
           $scope.formData = {}; // We clean the form
           $scope.newBook = false; // And hide it
+          $scope.loading = false;
         },
         function errorCallback(response) {
           console.log(response); // We show errors to the user, usually the logging and 'cleaning' of error happend in the backend
