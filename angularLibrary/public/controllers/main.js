@@ -7,12 +7,13 @@ app.controller('mainController', function($scope, $http, $mdDialog, $mdToast) { 
   $scope.users = []; // Array of all users
   $scope.categories = []; // Array of all categories
   $scope.books = []; // Array of all books
-  $scope.newBook = false; // Variable to know when the user clicked the add new book button so we show the form
-  $scope.active = 0; // Index of the current image on the banner
   $scope.totalItems; // Total of books showed in the list
-  $scope.currentPage = 1; //Current page showing on the list of books
   $scope.totalPages; // Total of pages in the list of books
+  $scope.active = 0; // Index of the current image on the banner
+  $scope.currentPage = 1; //Current page showing on the list of books
   $scope.pageSize = 5; // Total number of books shown by page
+  $scope.newBook = false; // Variable to know when the user clicked the add new book button so we show the for
+  $scope.loading = false; // Variable to know when the page is loading
   var slides = $scope.slides = [{ // Array containing all the info and the images urls for the banner
       image: '../assets/banner1.jpg',
       text: 'Come visit our new library and get your library card in 5 minutes!',
@@ -59,6 +60,7 @@ app.controller('mainController', function($scope, $http, $mdDialog, $mdToast) { 
     });
   //Function used to save a book
   $scope.saveBook = function() {
+    $scope.loading = true;
     if ($scope.formData.name == undefined || $scope.formData.author == undefined || $scope.formData.category == undefined || $scope.formData.published == undefined)
       return;
     var foundIndex = $scope.categories.findIndex(x => x.name == $scope.formData.category); // unfortunately  angular js doesnt have support yet for DataList i couldnt find a way to bind the ID with the book form object
@@ -71,8 +73,10 @@ app.controller('mainController', function($scope, $http, $mdDialog, $mdToast) { 
           $scope.totalItems = $scope.totalPages * 10;
           $scope.formData = {}; // We clean the form
           $scope.newBook = false; // And hide it
+          $scope.loading = false;
         },
         function errorCallback(response) {
+          $scope.loading = false;
           console.log(response); // We show errors to the user, usually the logging and 'cleaning' of error happend in the backend
         }
       )
@@ -175,6 +179,7 @@ app.controller('mainController', function($scope, $http, $mdDialog, $mdToast) { 
     };
     $scope.edit = function() {
       $scope.formData = book;
+      $scope.formData.category = book.category.name;
       $mdDialog.cancel();
     }
     $scope.cancel = function() {
