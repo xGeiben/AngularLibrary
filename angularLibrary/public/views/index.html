@@ -39,7 +39,7 @@
           <a href="#mainContent"><h4>About us</h4></a>
         </div>
         <div class="col-md-2 col-xs-3 text-center NavLinks">
-          <a href="https://www.google.com/"><h4>External!</h4></a>
+          <a href="https://www.google.com/"><h4>External</h4></a>
         </div>
       </div>
     </nav>
@@ -95,7 +95,7 @@
             <md-content>
               <md-list flex>
                 <md-list-item class="md-3-line" ng-repeat="book in books | filter: filterText | limitTo:pageSize:pageSize*(currentPage-1)" ng-click="currentBook = book;showDetails(book)">
-                  <img ng-src="/assets/open-book.svg" class="md-avatar" alt="Book logo" style="width: 2em;" />
+                  <img id="bookLogo" ng-src="/assets/open-book.svg" class="md-avatar" alt="Book logo" />
                   <div class="md-list-item-text" layout="column">
                     <h3>{{ book.name }}</h3>
                     <h4>{{ book.author }}</h4>
