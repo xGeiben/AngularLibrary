@@ -3,3 +3,7 @@ This is an Angular app created to show some AngularJS functionalities. The proje
 
 ## How to run
 As i said the functionalities of the app depends on the API so it needed to be on a server, for this we are gonna need node.js to server our app, once in the console we just need to go to the folder containing the files and run our server with "node server.js" then we just go to our explorer (Chrome recomended) and go to http://localhost:8080.
+
+## Some points
+As you can see theres only one project, this is because i included both test (front-end and angularJS) in the same page, i think it would be the best for matter of developing and it would be easiest for you to review one project instead of two.
+
