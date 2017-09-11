@@ -1,0 +1,46 @@
+<!-- Template for the modal containing all the info of the book and some actions -->
+<md-dialog aria-label="Current book">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{book.name}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <i class="fa fa-times-circle fa-lg" aria-label="Close dialog" aria-hidden="true"></i>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <h3>{{book.name}}</h3>
+        <h4>{{book.author}}</h4>
+        <h4>{{book.category.name}}</h4>
+        <p>Published: <b>{{book.published | date: 'dd-MM-yyyy'}}</b></p>
+        <h5>{{book.blurb}}</h5>
+        <md-button href="#bookForm" ng-click="showForm();edit()" class="md-raised">Edit this book information</md-button>
+        <md-button class="md-raised md-warn" ng-disabled="assigned" ng-show="!assign" ng-click="assign = true">Assign to user</md-button>
+        <h3 class="md-subhead redTxt" ng-if="assigned">This book is currently unavailable, right now the user <b> {{book.currentUser.name}} </b> owns it.</h3>
+        <h5 ng-if="assigned" ng-click="unnasign()" class="md-subhead">If this book has been returned click here</h5>
+        <div ng-show="assign" class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="Users">Library users</label>
+              <select required class="form-control" id="Users" name="users" ng-model="AssignObj.userID">
+              <option ng-repeat="user in users" value="{{user._id}}">{{user.name}}</option>
+            </select>
+            </div>
+            <div class="form-group text-right">
+              <md-button class="md-raised md-warn" ng-click="assign = false">Cancel</md-button>
+              <md-button class="md-raised md-primary" ng-click="assignBook()">Assign book</md-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button class="md-accent md-raised md-hue-1" ng-click="deleteBook()">Delete</md-button>
+      <span flex></span>
+      <h5 class="md-subhead">Angular library 2017</h5>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

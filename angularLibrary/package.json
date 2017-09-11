@@ -1,0 +1,19 @@
+{
+  "name": "Front-End-Test",
+  "version": "0.0.01",
+  "description": "Simple Web App Test for Maniak",
+  "main": "server.js",
+  "author": "Geiben Varela",
+  "dependencies": {
+    "angular": "^1.6.5",
+    "angular-animate": "^1.6.5",
+    "angular-aria": "^1.6.5",
+    "angular-material": "^1.1.5",
+    "angular-messages": "^1.6.5",
+    "body-parser": "~1.5.2",
+    "express": "~4.0.0",
+    "method-override": "~2.1.2",
+    "mongoose": "^4.10.8",
+    "morgan": "~1.2.2"
+  }
+}

@@ -1,0 +1,95 @@
+// Theme Name: Single app Angular Js
+// Description: Main style sheet for Angular library app, This file gets compiled and compressed to style.min.css
+// Author: Geiben Varela
+// -----Variables-----
+$primary-color: #343434;
+$banner-background: '../assets/ricepaper2.png';
+$angulartest-background: '../assets/geometry.png';
+$break-medium: 990px;
+// -----General styles-----
+html {
+  position: relative;
+  min-height: 100%;
+}
+body{
+    font-family: 'Arimo', sans-serif;
+    margin-bottom: 60px;
+}
+#bannerRow{
+  margin-top: 6em;
+}
+#banner{
+  height: 305px;
+}
+#bannerSection{
+  background-image: url($banner-background);
+  height: 33em;
+}
+#mainContentRow{
+  margin-top: 5em;
+  margin-bottom: 5em;
+}
+#whoarewetext{
+  margin-top:10%;
+}
+#navImg{
+  height: 5em;
+}
+#angularTest{
+  background-image: url($angulartest-background);
+  min-height: 80em;
+}
+#footerImg{
+  height: 55px;
+}
+#footerText{
+  margin-top: 1em;
+  @media screen and (max-width: $break-medium) {
+    text-align: right;
+  }
+}
+.md-headline{
+  @media screen and (max-width: $break-medium) {
+    text-align: right;
+    font-size: 20px;
+  }
+}
+.navbar{
+   height: 5em;
+   margin-bottom: 0;
+}
+.NavLinks{
+    margin-top: 1em;
+    a{
+      color:black;
+      &:hover{
+        text-decoration: none;
+      }
+    }
+}
+.md-headline{
+  margin-top:.7em;
+}
+.redTxt{
+  color: #C62828;
+}
+.footer {
+  background-color: #f5f5f5;
+  position: absolute;
+  width: 100%;
+  height: 60px;
+}
+.social {
+    font-size: 30px;
+    text-decoration: none;
+    list-style-type: none;
+    a{
+      color: rgb(63,81,181);
+      &:hover{
+        color:#337ab7;
+      }
+      i{
+        margin-top:.5em;
+      }
+    }
+}

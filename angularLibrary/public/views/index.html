@@ -1,0 +1,224 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+  <title>Angular library</title>
+  <script src="/node_modules/angular/angular.js"></script>
+  <script src="/node_modules/angular-animate/angular-animate.min.js"></script>
+  <script src="/node_modules/angular-aria/angular-aria.min.js"></script>
+  <script src="/node_modules/angular-messages/angular-messages.min.js"></script>
+  <script src="/node_modules/angular-material/angular-material.min.js"></script>
+  <script src="../scripts/ui-bootstrap-2.5.0.min.js"></script>
+  <script src="../scripts/ui-bootstrap-tpls-2.5.0.min.js"></script>
+  <script src="../controllers/main.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="/node_modules/angular-material/angular-material.min.css" />
+  <link rel="stylesheet" type="text/css" href="../styles/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../styles/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="../styles/style.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Arimo" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="assets/libLogo_icon.ico">
+</head>
+
+<body>
+
+
+  <div id="angularLibrary" ng-controller="mainController" style="overflow: hidden;">
+    <!-- Menu -->
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="row">
+        <div class="col-md-1 col-xs-1">
+          <img id="navImg" src="../assets/libLogo.png" alt="Library Logo">
+        </div>
+        <div class="col-md-3 col-xs-4">
+          <h5 class="md-headline">Angular Library</h5>
+        </div>
+        <div class="col-md-2 col-xs-3 col-md-offset-4 col-xs-offset-1 text-right NavLinks">
+          <a href="#mainContent"><h4>About us</h4></a>
+        </div>
+        <div class="col-md-2 col-xs-3 text-center NavLinks">
+          <a href="https://www.google.com/"><h4>External!</h4></a>
+        </div>
+      </div>
+    </nav>
+    <!-- End of Menu -->
+    <!-- Banner -->
+    <section id="bannerSection">
+      <div class="container">
+        <div id="bannerRow" class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <div id="banner">
+              <div uib-carousel active="active" interval="4000" no-wrap="false">
+                <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
+                  <img ng-src="{{slide.image}}" style="margin:auto;">
+                  <div class="carousel-caption">
+                    <p>{{slide.text}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End of Banner -->
+    <!-- Main Content -->
+    <section id="mainContent">
+      <div class="container-fluid">
+        <div id="mainContentRow" class="row">
+          <div id="whoarewetext" class="col-md-6 col-xs-6">
+            <h4>Who are we ?</h4>
+            <p style="text-align:justify"> Angular library its a website build with technologies such as AngularJS, Material Design and Bootstrap, it uses a RESTful API build in node.js. This app is made so it can show some of the functionalities of AngularJS and some of his most used
+              UI frameworks.
+            </p>
+          </div>
+          <div class="col-md-6 col-xs-6">
+            <img class="img-responsive img-rounded" src="assets/library.jpg" alt="library">
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End of Main Content -->
+    <!-- Angular Test  -->
+    <section id="angularTest">
+      <!-- List of books -->
+      <div class="container">
+        <h2 style="text-align:center">Current books</h2>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3 text-center">
+            <md-input-container class="md-block">
+              <label>Filter</label>
+              <input ng-model="filterText">
+            </md-input-container>
+            <md-content>
+              <md-list flex>
+                <md-list-item class="md-3-line" ng-repeat="book in books | filter: filterText | limitTo:pageSize:pageSize*(currentPage-1)" ng-click="currentBook = book;showDetails(book)">
+                  <img ng-src="/assets/open-book.svg" class="md-avatar" alt="Book logo" style="width: 2em;" />
+                  <div class="md-list-item-text" layout="column">
+                    <h3>{{ book.name }}</h3>
+                    <h4>{{ book.author }}</h4>
+                    <p>{{ book.category.name }}</p>
+                  </div>
+                  <md-divider></md-divider>
+                </md-list-item>
+              </md-list>
+            </md-content>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3 text-center">
+            <ul uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" max-size="5" class="pagination-md" boundary-links="true"></ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3 text-center">
+            <md-button ng-if="!newBook" ng-click="showForm()" class="md-raised md-primary">Add a new book!</md-button>
+          </div>
+        </div>
+      </div>
+      <!-- Books form -->
+      <section id="bookForm">
+        <!-- Create book -->
+        <div ng-if="newBook" id="book-form" class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <h2 style="text-align:center">Register a new book</h2>
+            <form name="bookForm">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <md-input-container class="md-block">
+                      <label>Title</label>
+                      <input required name="name" ng-model="formData.name">
+                      <div ng-messages="bookForm.name.$error" role="alert">
+                        <div ng-message="required">You should add a title of this book before saving.</div>
+                      </div>
+                    </md-input-container>
+                  </div>
+                  <div class="form-group">
+                    <md-input-container class="md-block">
+                      <label>Category</label>
+                      <input required list="categoryList" name="category" ng-model="formData.category">
+                      <div ng-messages="bookForm.category.$error" role="alert">
+                        <div ng-message-exp="['required']">
+                          You should add a category before saving.
+                        </div>
+                      </div>
+                    </md-input-container>
+                    <datalist id="categoryList">
+                      <option ng-repeat="cat in categories" value="{{cat.name}}">{{cat.description}}</option>
+                    </datalist>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <md-input-container class="md-block">
+                      <label>Author</label>
+                      <input required name="author" ng-model="formData.author">
+                      <div ng-messages="bookForm.author.$error" role="alert">
+                        <div ng-message="required">You should add an author before saving.</div>
+                      </div>
+                    </md-input-container>
+                  </div>
+                  <div class="form-group text-center">
+                    <md-input-container class="md-block">
+                      <md-datepicker required name="published" ng-model="formData.published" md-placeholder="Date of publish" md-open-on-focus></md-datepicker>
+                      <div ng-messages="bookForm.published.$error" role="alert">
+                        <div ng-message="required">You should select a date of published before saving.</div>
+                      </div>
+                    </md-input-container>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <md-input-container class="md-block">
+                      <label>Blurb(optional)</label>
+                      <input ng-model="formData.blurb">
+                    </md-input-container>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 col-md-offset-4 text-center">
+                  <md-button ng-click="hideForm()" type="submit" class="md-raised md-warn">Cancel</md-button>
+                  <md-button type="submit" ng-click="saveBook()" class="md-raised md-primary">Save book</md-button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- End of Create book -->
+          <!-- End of the Angular Test -->
+        </div>
+      </section>
+    </section>
+    <!-- End of Angular Test -->
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 col-xs-1">
+            <img id="footerImg" src="../assets/libLogo.png" alt="Library Logo">
+          </div>
+          <div id="footerText" class="col-md-6 col-xs-6 text-center">
+            <h5>Angular library 2017</h5>
+          </div>
+          <div class="col-md-3 col-xs-5 text-right">
+            <li class="social">
+              <a href="" target="_blank"><i class="fa fa-facebook-square fa-size"> </i></a>
+              <a href="" target="_blank"><i class="fa fa-twitter-square fa-size"> </i></a>
+              <a href="" target="_blank"><i class="fa fa-github-square fa-size"> </i></a>
+              <a href="" target="_blank"><i class="fa fa-google-plus-square fa-size"> </i></a>
+              <a href="" target="_blank"><i class="fa fa-linkedin-square"> </i></a>
+            </li>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End of Footer -->
+
+</body>
+
+</html>
